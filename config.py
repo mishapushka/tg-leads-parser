@@ -138,53 +138,11 @@ CRM_MIN_SCORE: str = os.getenv("CRM_MIN_SCORE", "warm").lower()
 # Ссылки в формате https://t.me/...  (Telethon их понимает наравне с @username и id).
 # ВАЖНО: аккаунт должен СОСТОЯТЬ в каждом чате/канале — иначе он не читается.
 # Каналы, которые не удалось открыть, парсер пропустит с ошибкой в логе и продолжит.
-CHANNELS: list[str] = [
-    # — Исходные (веб-дев / дизайн) —
-    "https://t.me/tildoshnaya",
-    "https://t.me/tildoshnayachat",
-    "https://t.me/forwebdev",
-    "https://t.me/frontend_ru",
-    "https://t.me/javascript_ru",
-    "https://t.me/wordpress_ru",
-    "https://t.me/figmachat",
-    "https://t.me/frontend_international",
-    "https://t.me/parseraibotmisha",
-    "https://t.me/VelesCommunityRu",
+import json
+from pathlib import Path
 
-    # — Фриланс-биржи и чаты заказов (веб + дизайн) —
-    "https://t.me/webfrl",            # Web Freelance
-    "https://t.me/digitaltender",     # Digital Tender — разработка
-    "https://t.me/designer_ru",       # Ищу дизайнера / веб-мастера
-    "https://t.me/freelance_jobs_ru", # Фриланс Заказы
-    "https://t.me/freelance_orders",  # Заказы для фрилансеров
-    "https://t.me/freelance_birzha",  # Freelance Биржа
-    "https://t.me/freelancebaraholka",# Фриланс Барахолка
-    "https://t.me/freelancetalk",     # Фриланс Тусовка
-    "https://t.me/it_orders",         # IT Заказы
-    "https://t.me/programming_jobs",  # Программирование Заказы
-    "https://t.me/design_orders",     # Дизайн Заказы
-    "https://t.me/designbirzha",      # Дизайн-биржа
-    "https://t.me/zakaz_design",      # Заказы на дизайн
-    "https://t.me/freelansim_ru",     # Хабр Фриланс
-    "https://t.me/freten",            # Фриланс | Вакансии
-    "https://t.me/ipomogator",        # Помогатор (боты, баннеры)
+_channels_path = Path(__file__).parent / "channels.json"
+if not _channels_path.exists():
+    _channels_path = Path(__file__).parent / "channels.example.json"
 
-    # — Англоязычные / международные (заказы и поиск разработчиков) —
-    # Чтобы эти каналы давали лиды, в filters.json добавлены английские ключевики.
-    "https://t.me/remoters",              # Remote Web dev jobs
-    "https://t.me/remotejobshg",          # IT Remote Jobs — Hidden Gurus
-    "https://t.me/freelancersit",         # IT Freelancer & Outsourcing
-    "https://t.me/remote_job_offers_en",  # Remote Job (EN)
-    "https://t.me/Freelancer",            # Freelancer | Jobs & Projects
-    "https://t.me/itfreelance",           # IT Freelance offers
-    "https://t.me/developer_jobs",        # Developer jobs
-    "https://t.me/remote_developers",     # Remote developers
-    "https://t.me/prog_jobs",             # Programming jobs
-    "https://t.me/frontend_jobs",         # Frontend jobs
-    "https://t.me/backend_jobs",          # Backend jobs
-    "https://t.me/fullstack_jobs",        # Fullstack jobs
-    "https://t.me/mobile_developer_jobs", # Mobile developer jobs
-    "https://t.me/design_work",           # Design vacancies (UI/UX, web)
-    "https://t.me/uiux_jobs",             # UI/UX jobs
-    "https://t.me/web_designers",         # Web designers
-]
+CHANNELS = json.loads(_channels_path.read_text(encoding="utf-8"))
