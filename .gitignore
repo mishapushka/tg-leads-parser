@@ -1,0 +1,7 @@
+.env
+*.session
+*.session-journal
+__pycache__/
+.DS_Store
+login_qr.png
+filters.json
